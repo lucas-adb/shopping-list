@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { db } from "./config/firebase";
 import "./App.css";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
 
 const itemsCollectionRef = collection(db, "items");
 
@@ -24,24 +24,32 @@ function App() {
 
   useEffect(() => {
     getShoppingList().then(setShoppingList);
-  }, [shoppingList]);
+  }, []);
+
+  async function updateIsItemCompleted(id, isCompleted) {
+    console.log(id);
+
+    const shoppingListDoc = doc(db, "items", id);
+    console.log(shoppingListDoc)
+    await updateDoc(shoppingListDoc, { completed: !isCompleted})
+
+  }
 
   return (
-    <>
+    <div>
       <h1>Shopping List</h1>
 
-      {shoppingList.map((item) => (
-        <div key={item.id}>
+      {shoppingList?.map((item) => (
+        <div key={item.id} className="shopping-list-item">
           <input 
           type="checkbox" 
           checked={item.completed}
-          // TODO: change value of docs when input is checked or unchecked
-          // onChange={}
+          onChange={() => updateIsItemCompleted(item.id, item.completed)}
           />
           <p>{item.title}</p>
         </div>
       ))}
-    </>
+    </ div>
   );
 }
 

@@ -17,3 +17,8 @@ body {
   color: var(--main);
   font-family: 'Poppins', sans-serif;
 }
+
+.shopping-list-item {
+  display: flex;
+  gap: 8px;
+}
