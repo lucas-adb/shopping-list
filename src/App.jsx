@@ -1,50 +1,40 @@
 import { useEffect, useState } from "react";
 import { db } from "./config/firebase";
 import "./App.css";
-import { collection, getDocs, doc, updateDoc } from "firebase/firestore";
+import { collection, doc, updateDoc, onSnapshot } from "firebase/firestore";
 
-const itemsCollectionRef = collection(db, "items");
+const shoppingItemsCollection = collection(db, "items");
 
-async function getShoppingList() {
-  try {
-    const data = await getDocs(itemsCollectionRef);
-    const filteredData = data.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-
-    return filteredData;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-function App() {
-  const [shoppingList, setShoppingList] = useState([]);
+function ShoppingListApp() {
+  const [shoppingItems, setShoppingItems] = useState([]);
 
   useEffect(() => {
-    getShoppingList().then(setShoppingList);
+    const stopListeningToShoppingItems = onSnapshot(shoppingItemsCollection, (snapshot) => {
+      const updatedItems = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setShoppingItems(updatedItems);
+    });
+
+    return () => stopListeningToShoppingItems();
   }, []);
 
-  async function updateIsItemCompleted(id, isCompleted) {
-    console.log(id);
-
-    const shoppingListDoc = doc(db, "items", id);
-    console.log(shoppingListDoc)
-    await updateDoc(shoppingListDoc, { completed: !isCompleted})
-    getShoppingList().then(setShoppingList);
+  async function toggleItemCompletion(id, previousItemCompletion) {
+    const shoppingItemDoc = doc(db, "items", id);
+    await updateDoc(shoppingItemDoc, { completed: !previousItemCompletion });
   }
 
   return (
     <div>
       <h1>Shopping List</h1>
 
-      {shoppingList?.map((item) => (
+      {shoppingItems?.map((item) => (
         <div key={item.id} className="shopping-list-item">
           <input 
           type="checkbox" 
           checked={item.completed}
-          onChange={() => updateIsItemCompleted(item.id, item.completed)}
+          onChange={() => toggleItemCompletion(item.id, item.completed)}
           />
           <p>{item.title}</p>
         </div>
@@ -53,4 +43,4 @@ function App() {
   );
 }
 
-export default App;
+export default ShoppingListApp;
