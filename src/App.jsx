@@ -32,7 +32,7 @@ function App() {
     const shoppingListDoc = doc(db, "items", id);
     console.log(shoppingListDoc)
     await updateDoc(shoppingListDoc, { completed: !isCompleted})
-
+    getShoppingList().then(setShoppingList);
   }
 
   return (
