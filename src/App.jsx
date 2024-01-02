@@ -1,26 +1,13 @@
 import { useEffect, useState } from "react";
-import { db } from "./config/firebase";
-import { collection, onSnapshot } from "firebase/firestore";
 import ShoppingItem from "./components/ShoppingItem";
+import { getShoppingItems } from "./utils/firebaseFunctions";
 import "./App.css";
-
-
-const shoppingItemsCollection = collection(db, "items");
 
 function ShoppingListApp() {
   const [shoppingItems, setShoppingItems] = useState([]);
 
   useEffect(() => {
-    const stopListeningToShoppingItems = onSnapshot(
-      shoppingItemsCollection,
-      (snapshot) => {
-        const updatedItems = snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setShoppingItems(updatedItems);
-      }
-    );
+    const stopListeningToShoppingItems = getShoppingItems(setShoppingItems);
 
     return () => stopListeningToShoppingItems();
   }, []);
