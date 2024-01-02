@@ -1,21 +1,14 @@
 import { useState } from "react";
 
 import { db } from "../config/firebase";
-import {
-  doc,
-  updateDoc,
-  deleteDoc,
-} from "firebase/firestore";
+import { doc, updateDoc, deleteDoc } from "firebase/firestore";
 
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
 function ShoppingItem({ item }) {
-
   const { id, title, completed } = item;
-
-  // console.log(props);
 
   const [isEditBtnClicked, setIsEditBtnClicked] = useState(false);
 
@@ -31,35 +24,34 @@ function ShoppingItem({ item }) {
 
   return (
     <div className="shopping-list-item">
-    <label
-      htmlFor={id}
-      className={completed ? "item-completed" : "item-uncompleted"}
-    >
-      <input
-        type="checkbox"
-        name="checkbox"
-        id={id}
-        checked={completed}
-        onChange={() => toggleItemCompletion(id, completed)}
-      />
-      {/* {item.title} */}
-      {isEditBtnClicked ? (
-        <input type="text" placeholder="Edit..." className="edit-input"/>
-      ) : (
-        title
-      )}
-    </label>
-    <button
-      className="edit-btn"
-      onClick={() => setIsEditBtnClicked(!isEditBtnClicked)}
-    >
-      <FaEdit className="edit" />
-    </button>
-    <button className="delete-btn" onClick={() => deleteItem(id)}>
-      <FaRegTrashCan className="trash-can" />
-    </button>
-  </div>
-  )
+      <label
+        htmlFor={id}
+        className={completed ? "item-completed" : "item-uncompleted"}
+      >
+        <input
+          type="checkbox"
+          name="checkbox"
+          id={id}
+          checked={completed}
+          onChange={() => toggleItemCompletion(id, completed)}
+        />
+        {isEditBtnClicked ? (
+          <input type="text" placeholder="Edit..." className="edit-input" />
+        ) : (
+          title
+        )}
+      </label>
+      <button
+        className="edit-btn"
+        onClick={() => setIsEditBtnClicked(!isEditBtnClicked)}
+      >
+        <FaEdit className="edit" />
+      </button>
+      <button className="delete-btn" onClick={() => deleteItem(id)}>
+        <FaRegTrashCan className="trash-can" />
+      </button>
+    </div>
+  );
 }
 
 export default ShoppingItem;
