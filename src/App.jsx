@@ -1,14 +1,22 @@
 import { useEffect, useState } from "react";
 import { db } from "./config/firebase";
 import "./App.css";
-import { collection, doc, updateDoc, onSnapshot, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  updateDoc,
+  onSnapshot,
+  deleteDoc,
+} from "firebase/firestore";
 
 import { FaRegTrashCan } from "react-icons/fa6";
+import { FaEdit } from "react-icons/fa";
 
 const shoppingItemsCollection = collection(db, "items");
 
 function ShoppingListApp() {
   const [shoppingItems, setShoppingItems] = useState([]);
+  const [isEditBtnClicked, setIsEditBtnClicked] = useState(false);
 
   useEffect(() => {
     const stopListeningToShoppingItems = onSnapshot(
@@ -52,8 +60,19 @@ function ShoppingListApp() {
               checked={item.completed}
               onChange={() => toggleItemCompletion(item.id, item.completed)}
             />
-            {item.title}
+            {/* {item.title} */}
+            {isEditBtnClicked ? (
+              <input type="text" placeholder="Edit..." className="edit-input"/>
+            ) : (
+              item.title
+            )}
           </label>
+          <button
+            className="edit-btn"
+            onClick={() => setIsEditBtnClicked(!isEditBtnClicked)}
+          >
+            <FaEdit className="edit" />
+          </button>
           <button className="delete-btn" onClick={() => deleteItem(item.id)}>
             <FaRegTrashCan className="trash-can" />
           </button>

@@ -65,13 +65,27 @@ body {
   text-decoration: none;
 }
 
-.trash-can {
+.trash-can, .edit {
   align-self: center;
   cursor: pointer;
   color: var(--tertiary);
 }
 
-.delete-btn {
+.delete-btn, .edit-btn {
   background-color: transparent;
   border: none;
+}
+
+.hide-item-title {
+  display: none;
+}
+
+.edit-input {
+  width: 100%;
+  background-color: transparent;
+  color: var(--main);
+  border: 1px solid var(--highlight);
+  padding: 0 8px;
+  border-radius: 0.5rem;
+  margin-block: 0.2rem;
 }
