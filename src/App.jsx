@@ -3,6 +3,8 @@ import { db } from "./config/firebase";
 import "./App.css";
 import { collection, doc, updateDoc, onSnapshot } from "firebase/firestore";
 
+import { FaRegTrashCan } from "react-icons/fa6";
+
 const shoppingItemsCollection = collection(db, "items");
 
 function ShoppingListApp() {
@@ -34,7 +36,10 @@ function ShoppingListApp() {
 
       {shoppingItems?.map((item) => (
         <div key={item.id} className="shopping-list-item">
-          <label htmlFor={item.id} className={ item.completed ? "item-completed" : "item-uncompleted" }>
+          <label
+            htmlFor={item.id}
+            className={item.completed ? "item-completed" : "item-uncompleted"}
+          >
             <input
               type="checkbox"
               name="checkbox"
@@ -44,6 +49,7 @@ function ShoppingListApp() {
             />
             {item.title}
           </label>
+          <FaRegTrashCan className="trash-can" />
         </div>
       ))}
     </div>
