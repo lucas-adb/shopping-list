@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 
-import { db } from "../config/firebase";
-import { doc, updateDoc, deleteDoc } from "firebase/firestore";
-
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
+
+import {
+  toggleItemCompletion,
+  deleteItem,
+  updateItemTitle,
+} from "../utils/firebaseFunctions";
 
 function ShoppingItem({ item }) {
   const { id, title, completed } = item;
@@ -13,26 +16,11 @@ function ShoppingItem({ item }) {
   const [isEditBtnClicked, setIsEditBtnClicked] = useState(false);
   const [newTitle, setNewTitle] = useState("");
 
-  async function toggleItemCompletion(id, previousItemCompletion) {
-    const shoppingItemDoc = doc(db, "items", id);
-    await updateDoc(shoppingItemDoc, { completed: !previousItemCompletion });
-  }
-
-  async function deleteItem(id) {
-    const shoppingItemDoc = doc(db, "items", id);
-    await deleteDoc(shoppingItemDoc);
-  }
-
   useEffect(() => {
-    async function updateItemTitle(id) {
-      const shoppingItemDoc = doc(db, "items", id);
-      await updateDoc(shoppingItemDoc, { title: newTitle });
-    }
-
     if (newTitle && newTitle.trim() !== "") {
-      updateItemTitle(id);
+      updateItemTitle(id, newTitle);
     }
-  }, [newTitle, id])
+  }, [newTitle, id]);
 
   return (
     <div className="shopping-list-item">
