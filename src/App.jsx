@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { db } from "./config/firebase";
 import "./App.css";
-import { collection, doc, updateDoc, onSnapshot } from "firebase/firestore";
+import { collection, doc, updateDoc, onSnapshot, deleteDoc } from "firebase/firestore";
 
 import { FaRegTrashCan } from "react-icons/fa6";
 
@@ -30,6 +30,11 @@ function ShoppingListApp() {
     await updateDoc(shoppingItemDoc, { completed: !previousItemCompletion });
   }
 
+  async function deleteItem(id) {
+    const shoppingItemDoc = doc(db, "items", id);
+    await deleteDoc(shoppingItemDoc);
+  }
+
   return (
     <div className="shopping-list">
       <h1>Shopping List</h1>
@@ -49,7 +54,7 @@ function ShoppingListApp() {
             />
             {item.title}
           </label>
-          <button className="delete-btn" onClick={(event) => console.log(event.target)}>
+          <button className="delete-btn" onClick={() => deleteItem(item.id)}>
             <FaRegTrashCan className="trash-can" />
           </button>
         </div>
