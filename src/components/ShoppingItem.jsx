@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { db } from "../config/firebase";
 import { doc, updateDoc, deleteDoc } from "firebase/firestore";
@@ -11,6 +11,7 @@ function ShoppingItem({ item }) {
   const { id, title, completed } = item;
 
   const [isEditBtnClicked, setIsEditBtnClicked] = useState(false);
+  const [newTitle, setNewTitle] = useState("");
 
   async function toggleItemCompletion(id, previousItemCompletion) {
     const shoppingItemDoc = doc(db, "items", id);
@@ -21,6 +22,17 @@ function ShoppingItem({ item }) {
     const shoppingItemDoc = doc(db, "items", id);
     await deleteDoc(shoppingItemDoc);
   }
+
+  useEffect(() => {
+    async function updateItemTitle(id) {
+      const shoppingItemDoc = doc(db, "items", id);
+      await updateDoc(shoppingItemDoc, { title: newTitle });
+    }
+
+    if (newTitle && newTitle.trim() !== "") {
+      updateItemTitle(id);
+    }
+  }, [newTitle, id])
 
   return (
     <div className="shopping-list-item">
@@ -36,7 +48,12 @@ function ShoppingItem({ item }) {
           onChange={() => toggleItemCompletion(id, completed)}
         />
         {isEditBtnClicked ? (
-          <input type="text" placeholder="Edit..." className="edit-input" />
+          <input
+            type="text"
+            placeholder="Edit..."
+            className="edit-input"
+            onChange={(event) => setNewTitle(event.target.value)}
+          />
         ) : (
           title
         )}
