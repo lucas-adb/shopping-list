@@ -9,13 +9,16 @@ function ShoppingListApp() {
   const [shoppingItems, setShoppingItems] = useState([]);
 
   useEffect(() => {
-    const stopListeningToShoppingItems = onSnapshot(shoppingItemsCollection, (snapshot) => {
-      const updatedItems = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setShoppingItems(updatedItems);
-    });
+    const stopListeningToShoppingItems = onSnapshot(
+      shoppingItemsCollection,
+      (snapshot) => {
+        const updatedItems = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setShoppingItems(updatedItems);
+      }
+    );
 
     return () => stopListeningToShoppingItems();
   }, []);
@@ -31,15 +34,19 @@ function ShoppingListApp() {
 
       {shoppingItems?.map((item) => (
         <div key={item.id} className="shopping-list-item">
-          <input 
-          type="checkbox" 
-          checked={item.completed}
-          onChange={() => toggleItemCompletion(item.id, item.completed)}
-          />
-          <p>{item.title}</p>
+          <label htmlFor={item.id} className={ item.completed ? "item-completed" : "item-uncompleted" }>
+            <input
+              type="checkbox"
+              name="checkbox"
+              id={item.id}
+              checked={item.completed}
+              onChange={() => toggleItemCompletion(item.id, item.completed)}
+            />
+            {item.title}
+          </label>
         </div>
       ))}
-    </ div>
+    </div>
   );
 }
 

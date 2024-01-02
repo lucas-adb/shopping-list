@@ -22,3 +22,23 @@ body {
   display: flex;
   gap: 8px;
 }
+
+.shopping-list-item label {
+  font-size: 1.5rem;
+  display: grid;
+  grid-template-columns: 1em auto;
+  gap: 0.5em;
+}
+
+.shopping-list-item label input {
+  accent-color: var(--highlight);
+  }
+
+.item-completed {
+  text-decoration: line-through;
+  color: var(--secondary);
+}
+
+.item-uncompleted {
+  text-decoration: none;
+}
