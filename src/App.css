@@ -70,3 +70,8 @@ body {
   cursor: pointer;
   color: var(--tertiary);
 }
+
+.delete-btn {
+  background-color: transparent;
+  border: none;
+}

@@ -49,7 +49,9 @@ function ShoppingListApp() {
             />
             {item.title}
           </label>
-          <FaRegTrashCan className="trash-can" />
+          <button className="delete-btn" onClick={(event) => console.log(event.target)}>
+            <FaRegTrashCan className="trash-can" />
+          </button>
         </div>
       ))}
     </div>
