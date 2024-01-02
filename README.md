@@ -8,3 +8,4 @@
 ## Design 🎨
     Colors: Happy Hues
     Font: Poppins (Google Fonts)
+    Icons: React-Icons

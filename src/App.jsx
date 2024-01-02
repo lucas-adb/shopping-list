@@ -1,48 +1,26 @@
 import { useEffect, useState } from "react";
-import { db } from "./config/firebase";
+import ShoppingItem from "./components/ShoppingItem";
+import { getShoppingItems } from "./utils/firebaseFunctions";
 import "./App.css";
-import { collection, getDocs } from "firebase/firestore";
 
-const itemsCollectionRef = collection(db, "items");
-
-async function getShoppingList() {
-  try {
-    const data = await getDocs(itemsCollectionRef);
-    const filteredData = data.docs.map((doc) => ({
-      ...doc.data(),
-      id: doc.id,
-    }));
-
-    return filteredData;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
-function App() {
-  const [shoppingList, setShoppingList] = useState([]);
+function ShoppingListApp() {
+  const [shoppingItems, setShoppingItems] = useState([]);
 
   useEffect(() => {
-    getShoppingList().then(setShoppingList);
-  }, [shoppingList]);
+    const stopListeningToShoppingItems = getShoppingItems(setShoppingItems);
+
+    return () => stopListeningToShoppingItems();
+  }, []);
 
   return (
-    <>
+    <div className="shopping-list">
       <h1>Shopping List</h1>
 
-      {shoppingList.map((item) => (
-        <div key={item.id}>
-          <input 
-          type="checkbox" 
-          checked={item.completed}
-          // TODO: change value of docs when input is checked or unchecked
-          // onChange={}
-          />
-          <p>{item.title}</p>
-        </div>
+      {shoppingItems?.map((item) => (
+        <ShoppingItem key={item.id} item={item} />
       ))}
-    </>
+    </div>
   );
 }
 
-export default App;
+export default ShoppingListApp;
