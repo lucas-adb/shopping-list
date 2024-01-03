@@ -32,7 +32,7 @@ body {
 
   max-width: 420px;
   margin: 0 auto;
-  gap: 0.2rem;
+  gap: 1rem;
 }
 
 /* .shopping-list-item, .shopping-list h1 {
@@ -88,4 +88,30 @@ body {
   padding: 0 8px;
   border-radius: 0.5rem;
   margin-block: 0.2rem;
+}
+
+.new-item-input {
+  background-color: transparent;
+  color: var(--main);
+  border-radius: 0.5rem;
+  border: 1px solid var(--highlight);
+  padding: 0 8px;
+  font-size: 1.5rem;
+  width: 100%;
+}
+
+.add-new-item-btn {
+  background-color: transparent;
+  border: none;
+  color: var(--tertiary);
+  font-size: 2rem;
+}
+
+.add-new-item-btn:disabled {
+  color: var(--secondary);
+}
+
+.new-item-input-wrapper {
+  display: flex;
+  gap: 0.5rem;
 }

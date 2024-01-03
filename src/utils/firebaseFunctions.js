@@ -5,11 +5,14 @@ import {
   deleteDoc,
   collection,
   onSnapshot,
+  addDoc,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 
+const shoppingItemsCollection = collection(db, "items");
+
 export function getShoppingItems(setShoppingItems) {
-  const shoppingItemsCollection = collection(db, "items");
+  // const shoppingItemsCollection = collection(db, "items");
 
   const stopListeningToShoppingItems = onSnapshot(
     shoppingItemsCollection,
@@ -23,6 +26,22 @@ export function getShoppingItems(setShoppingItems) {
   );
 
   return stopListeningToShoppingItems;
+}
+
+// CREATE
+
+export async function addNewMovie(newItem) {
+  try {
+    await addDoc(shoppingItemsCollection, {
+      title: newItem,
+      completed: false,
+      userId: "01",
+      // Todo: create authentication
+      // userId: auth?.currentUser?.uid,
+    })
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function toggleItemCompletion(id, previousItemCompletion) {
