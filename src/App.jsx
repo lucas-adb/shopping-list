@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import ShoppingItem from "./components/ShoppingItem";
 import { getShoppingItems } from "./utils/firebaseFunctions";
 import "./App.css";
-import NewItemInput from "./components/NewItemInput";
+import NewItemForm from "./components/NewItemForm";
 
 function ShoppingListApp() {
   const [shoppingItems, setShoppingItems] = useState([]);
@@ -17,7 +17,7 @@ function ShoppingListApp() {
     <div className="shopping-list">
       <h1>Shopping List</h1>
 
-      <NewItemInput />
+      <NewItemForm />
 
       {shoppingItems?.map((item) => (
         <ShoppingItem key={item.id} item={item} />
