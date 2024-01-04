@@ -4,7 +4,7 @@ import ShoppingItem from "./components/ShoppingItem";
 import { getShoppingItems } from "./utils/firebaseFunctions";
 import "./App.css";
 import NewItemForm from "./components/NewItemForm";
-import Auth from "./components/Auth";
+// import Auth from "./components/Auth";
 
 function ShoppingListApp() {
   const [shoppingItems, setShoppingItems] = useState([]);
