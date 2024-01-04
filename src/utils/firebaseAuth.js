@@ -11,7 +11,9 @@ export const login = async (email, password) => {
 
 export const signUp = async (email, password) => {
   try {
-    await createUserWithEmailAndPassword(auth, email, password);
+    // await createUserWithEmailAndPassword(auth, email, password);
+    const data = await createUserWithEmailAndPassword(auth, email, password);
+    return data;
   } catch (err) {
     if (err.message.includes("auth/email-already-in-use")) {
       alert("Email already in use");

@@ -4,6 +4,7 @@
     React
     Vite
     Firebase
+    React Router
 
 ## Design 🎨
     Colors: Happy Hues

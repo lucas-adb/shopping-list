@@ -88,7 +88,8 @@ export function getShoppingItemsByUserId(setShoppingItems) {
 
 // CREATE
 
-export async function addNewMovie(newItem) {
+// TODO: rename to addNewItem
+export async function addNewItem(newItem) {
   try {
     await addDoc(shoppingItemsCollection, {
       title: newItem,

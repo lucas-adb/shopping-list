@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addNewMovie } from "../utils/firebaseFunctions";
+import { addNewItem } from "../utils/firebaseFunctions";
 
 import { FaCirclePlus } from "react-icons/fa6";
 
@@ -13,7 +13,7 @@ function NewItemForm() {
   const handleSubmit = (event) => {
     event.preventDefault();
     if(isTextInputValid(newItem)) {
-      addNewMovie(newItem);
+      addNewItem(newItem);
       setNewItem("");
     }
   }
