@@ -24,7 +24,7 @@ function ShoppingListApp() {
   return (
     <div className="shopping-list">
 
-      <Auth />
+      {/* <Auth /> */}
 
       <h1>Shopping List</h1>
 
