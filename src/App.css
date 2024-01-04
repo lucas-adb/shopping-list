@@ -126,6 +126,8 @@ body {
 
 .login-btn:disabled {
   background-color: var(--secondary);
+  border: var(--secondary);
+  color: var(--main);
 }
 
 .signup-link {
