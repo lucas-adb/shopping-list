@@ -39,6 +39,7 @@ function Auth() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      console.log('currentUser', currentUser.email);
     });
 
     return () => unsubscribe();
@@ -63,7 +64,8 @@ function Auth() {
       <button onClick={login}> Login</button>
       <button onClick={logout}> Logout </button>
 
-      <p>{auth.currentUser?.email !== undefined ? auth.currentUser.email : "user not logged in"}</p>
+      <p>{user.email !== undefined ? user.email : "user not logged in"}</p>
+      {/* <p>{auth.currentUser?.email !== undefined ? auth.currentUser.email : "user not logged in"}</p> */}
     </div>
   );
 }
