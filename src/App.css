@@ -116,7 +116,7 @@ body {
   gap: 0.5rem;
 }
 
-.login-btn {
+.login-btn, .sign-up-btn {
   background-color: var(--button);
   border: 1px solid var(--highlight);
   border-radius: 0.5rem;
@@ -124,7 +124,7 @@ body {
   cursor: pointer;
 }
 
-.login-btn:disabled {
+.login-btn:disabled, .sign-up-btn:disabled {
   background-color: var(--secondary);
   border: var(--secondary);
   color: var(--main);
