@@ -115,3 +115,19 @@ body {
   display: flex;
   gap: 0.5rem;
 }
+
+.login-btn {
+  background-color: var(--button);
+  border: 1px solid var(--highlight);
+  border-radius: 0.5rem;
+  padding: 0.5rem;
+  cursor: pointer;
+}
+
+.login-btn:disabled {
+  background-color: var(--secondary);
+}
+
+.signup-link {
+  color: var(--tertiary);
+}
