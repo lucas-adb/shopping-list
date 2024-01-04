@@ -9,6 +9,8 @@ import {
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 
+import { auth } from "../config/firebase";
+
 const shoppingItemsCollection = collection(db, "items");
 
 export function getShoppingItems(setShoppingItems) {
@@ -35,9 +37,9 @@ export async function addNewMovie(newItem) {
     await addDoc(shoppingItemsCollection, {
       title: newItem,
       completed: false,
-      userId: "01",
+      // userId: "01",
       // Todo: create authentication
-      // userId: auth?.currentUser?.uid,
+      userId: auth?.currentUser?.uid,
     })
   } catch (error) {
     console.error(error);

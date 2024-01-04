@@ -3,6 +3,7 @@ import ShoppingItem from "./components/ShoppingItem";
 import { getShoppingItems } from "./utils/firebaseFunctions";
 import "./App.css";
 import NewItemForm from "./components/NewItemForm";
+import Auth from "./components/Auth";
 
 function ShoppingListApp() {
   const [shoppingItems, setShoppingItems] = useState([]);
@@ -15,6 +16,9 @@ function ShoppingListApp() {
 
   return (
     <div className="shopping-list">
+
+      <Auth />
+
       <h1>Shopping List</h1>
 
       <NewItemForm />
