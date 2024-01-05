@@ -23,6 +23,7 @@ export const signUp = async (email, password) => {
       alert("Email already in use");
     } else {
       console.error(err);
+      throw err
     }
   }
 };

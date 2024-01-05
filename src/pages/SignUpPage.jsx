@@ -12,13 +12,16 @@ function SignUpPage() {
   const navigate = useNavigate();
 
   const goToItemsAfterSignUp = async () => {
-     const data = await signUp(email, password);
-     const newEmail = data.user.email;
-     const newUid = data.user.uid;
-
-     await addNewUser(newEmail, newUid, username, photoURL)
-
-     navigate(`/mylist`);
+     try {
+      const data = await signUp(email, password);
+      const newEmail = data.user.email;
+      const newUid = data.user.uid;
+      await addNewUser(newEmail, newUid, username, photoURL)
+      navigate(`/mylist`);
+     } catch (error) {
+      console.error(error);
+      alert("invalid email/password")
+     }
   }
 
   return (
