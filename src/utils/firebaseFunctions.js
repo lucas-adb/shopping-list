@@ -43,7 +43,7 @@ export async function addNewItem(newItem) {
     await addDoc(shoppingItemsCollection, {
       title: newItem,
       completed: false,
-      // Todo: create authentication
+      // TODO: do i really need that here now?
       userId: auth?.currentUser?.uid,
     });
   } catch (error) {
@@ -65,7 +65,12 @@ export async function updateItemTitle(id, newTitle) {
 
 // DELETE
 
+// export async function deleteItem(id) {
+//   const shoppingItemDoc = doc(db, "items", id);
+//   await deleteDoc(shoppingItemDoc);
+// }
+
 export async function deleteItem(id) {
-  const shoppingItemDoc = doc(db, "items", id);
+  const shoppingItemDoc = doc(db, `users/${auth.currentUser.uid}/items`, id);
   await deleteDoc(shoppingItemDoc);
 }
