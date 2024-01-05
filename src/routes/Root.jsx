@@ -1,10 +1,17 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../utils/firebaseAuth";
 
 function Root() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const navigate = useNavigate();
+
+  const goToItemsAfterLogin = async (email, password) => {
+    await login(email, password);
+    navigate(`/mylist`);
+  }
 
   return (
     <div className="shopping-list">
@@ -22,7 +29,7 @@ function Root() {
       />
       <button
         className="login-btn"
-        onClick={() => login(email, password)}
+        onClick={() => goToItemsAfterLogin(email, password)}
         disabled={!(email && password)}
       >
         Login
