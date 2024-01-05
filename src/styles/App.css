@@ -128,3 +128,15 @@ body {
   font-size: 1.5rem;
   text-decoration: underline 3px var(--tertiary);
 }
+
+.profile-picture {
+  border-radius: 100%;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+}
+
+.welcome-wrapper {
+  display: flex;
+  gap: 1rem;
+}
