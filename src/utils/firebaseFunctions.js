@@ -54,21 +54,16 @@ export async function addNewItem(newItem) {
 // UPDATE
 
 export async function toggleItemCompletion(id, previousItemCompletion) {
-  const shoppingItemDoc = doc(db, "items", id);
+  const shoppingItemDoc = doc(db, `users/${auth.currentUser.uid}/items`, id);
   await updateDoc(shoppingItemDoc, { completed: !previousItemCompletion });
 }
 
 export async function updateItemTitle(id, newTitle) {
-  const shoppingItemDoc = doc(db, "items", id);
+  const shoppingItemDoc = doc(db, `users/${auth.currentUser.uid}/items`, id);
   await updateDoc(shoppingItemDoc, { title: newTitle });
 }
 
 // DELETE
-
-// export async function deleteItem(id) {
-//   const shoppingItemDoc = doc(db, "items", id);
-//   await deleteDoc(shoppingItemDoc);
-// }
 
 export async function deleteItem(id) {
   const shoppingItemDoc = doc(db, `users/${auth.currentUser.uid}/items`, id);
