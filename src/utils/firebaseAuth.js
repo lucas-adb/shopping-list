@@ -10,6 +10,7 @@ export const login = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
     console.error(err);
+    throw err
   }
 };
 
