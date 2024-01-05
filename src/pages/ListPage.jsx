@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import ShoppingItem from "../components/ShoppingItem";
 import { getItems } from "../utils/firebaseFunctions";
-import "../App.css";
 import NewItemForm from "../components/NewItemForm";
 import Logout from "../components/Logout";
+import Welcome from "../components/Welcome";
 
 function ListPage() {
   const [shoppingItems, setShoppingItems] = useState([]);
@@ -16,6 +16,9 @@ function ListPage() {
 
   return (
     <div className="shopping-list">
+
+      <Welcome />
+
       <h1>Shopping List</h1>
 
       <NewItemForm />

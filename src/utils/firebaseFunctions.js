@@ -55,6 +55,26 @@ export function getItems(setShoppingItems) {
   }
 }
 
+export function getUsername(setUsername) {
+  try {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        const userDoc = doc(db, `users/${user.uid}`);
+
+        return onSnapshot(userDoc, (snapshot) => {
+          const userData = snapshot.data();
+          const updatedUsername = userData ? userData.username : "";
+          setUsername(updatedUsername);
+        });
+      }
+    });
+
+    return () => unsubscribe();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // UPDATE
 export async function toggleItemCompletion(id, previousItemCompletion) {
   try {
