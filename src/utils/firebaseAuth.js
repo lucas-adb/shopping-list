@@ -2,6 +2,7 @@ import { auth } from "../config/firebase";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 export const login = async (email, password) => {
@@ -22,5 +23,13 @@ export const signUp = async (email, password) => {
     } else {
       console.error(err);
     }
+  }
+};
+
+export const logout = async () => {
+  try {
+    await signOut(auth);
+  } catch (err) {
+    console.error(err);
   }
 };

@@ -3,6 +3,7 @@ import ShoppingItem from "../components/ShoppingItem";
 import { getItems } from "../utils/firebaseFunctions";
 import "../App.css";
 import NewItemForm from "../components/NewItemForm";
+import Logout from "../components/Logout";
 
 function ListPage() {
   const [shoppingItems, setShoppingItems] = useState([]);
@@ -22,6 +23,8 @@ function ListPage() {
       {shoppingItems?.map((item) => (
         <ShoppingItem key={item.id} item={item} />
       ))}
+
+      <Logout />
     </div>
   );
 }
