@@ -105,8 +105,23 @@ export function getShoppingItemsByUserId(setShoppingItems) {
 
 // CREATE
 
-// TODO: rename to addNewItem
+// export async function addNewItem(newItem) {
+//   try {
+//     await addDoc(shoppingItemsCollection, {
+//       title: newItem,
+//       completed: false,
+//       // userId: "01",
+//       // Todo: create authentication
+//       userId: auth?.currentUser?.uid,
+//     });
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+
 export async function addNewItem(newItem) {
+  const shoppingItemsCollection = collection(db, `users/${auth.currentUser.uid}/items`);
+
   try {
     await addDoc(shoppingItemsCollection, {
       title: newItem,

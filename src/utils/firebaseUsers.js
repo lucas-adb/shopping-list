@@ -14,7 +14,7 @@ export const addNewUser = async (email, userId, userName, photoUrl) => {
     userId, 
     userName,
     photoUrl,
-    items: [],
+    // items: [],
   })
 
   console.log("User added successfully");
