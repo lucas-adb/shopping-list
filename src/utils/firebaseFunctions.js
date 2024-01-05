@@ -34,7 +34,10 @@ export function getItems(setShoppingItems) {
   try {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        const shoppingItemsCollection = collection(db, `users/${user.uid}/items`);
+        const shoppingItemsCollection = collection(
+          db,
+          `users/${user.uid}/items`
+        );
 
         return onSnapshot(shoppingItemsCollection, (snapshot) => {
           const updatedItems = snapshot.docs.map((doc) => ({
