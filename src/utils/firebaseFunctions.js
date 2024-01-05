@@ -11,28 +11,7 @@ import { db } from "../config/firebase";
 
 import { auth } from "../config/firebase";
 
-// Read
-
-export function getItems(setShoppingItems) {
-  const unsubscribe = auth.onAuthStateChanged((user) => {
-    if (user) {
-      const shoppingItemsCollection = collection(db, `users/${user.uid}/items`);
-
-      return onSnapshot(shoppingItemsCollection, (snapshot) => {
-        const updatedItems = snapshot.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        }));
-        setShoppingItems(updatedItems || []);
-      });
-    }
-  });
-
-  return () => unsubscribe();
-}
-
 // CREATE
-
 export async function addNewItem(newItem) {
   const shoppingItemsCollection = collection(
     db,
@@ -50,21 +29,54 @@ export async function addNewItem(newItem) {
   }
 }
 
-// UPDATE
+// READ
+export function getItems(setShoppingItems) {
+  try {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        const shoppingItemsCollection = collection(db, `users/${user.uid}/items`);
 
+        return onSnapshot(shoppingItemsCollection, (snapshot) => {
+          const updatedItems = snapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+          }));
+          setShoppingItems(updatedItems || []);
+        });
+      }
+    });
+
+    return () => unsubscribe();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+// UPDATE
 export async function toggleItemCompletion(id, previousItemCompletion) {
-  const shoppingItemDoc = doc(db, `users/${auth.currentUser.uid}/items`, id);
-  await updateDoc(shoppingItemDoc, { completed: !previousItemCompletion });
+  try {
+    const shoppingItemDoc = doc(db, `users/${auth.currentUser.uid}/items`, id);
+    await updateDoc(shoppingItemDoc, { completed: !previousItemCompletion });
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 export async function updateItemTitle(id, newTitle) {
-  const shoppingItemDoc = doc(db, `users/${auth.currentUser.uid}/items`, id);
-  await updateDoc(shoppingItemDoc, { title: newTitle });
+  try {
+    const shoppingItemDoc = doc(db, `users/${auth.currentUser.uid}/items`, id);
+    await updateDoc(shoppingItemDoc, { title: newTitle });
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 // DELETE
-
 export async function deleteItem(id) {
-  const shoppingItemDoc = doc(db, `users/${auth.currentUser.uid}/items`, id);
-  await deleteDoc(shoppingItemDoc);
+  try {
+    const shoppingItemDoc = doc(db, `users/${auth.currentUser.uid}/items`, id);
+    await deleteDoc(shoppingItemDoc);
+  } catch (error) {
+    console.error(error);
+  }
 }
