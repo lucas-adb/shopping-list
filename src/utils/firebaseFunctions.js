@@ -43,8 +43,7 @@ export async function addNewItem(newItem) {
     await addDoc(shoppingItemsCollection, {
       title: newItem,
       completed: false,
-      // TODO: do i really need that here now?
-      userId: auth?.currentUser?.uid,
+      createdAt: Date.now(),
     });
   } catch (error) {
     console.error(error);
