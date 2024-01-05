@@ -18,6 +18,23 @@ const shoppingItemsCollection = collection(db, "items");
 
 // Read
 
+export function getItems(setShoppingItems) {
+  const shoppingItemsCollection = collection(db, `users/${auth.currentUser.uid}/items`);
+
+  const stopListeningToShoppingItems = onSnapshot(
+    shoppingItemsCollection,
+    (snapshot) => {
+      const updatedItems = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      }));
+      setShoppingItems(updatedItems);
+    }
+  );
+
+  return stopListeningToShoppingItems;
+}
+
 export function getShoppingItems(setShoppingItems) {
   // const shoppingItemsCollection = collection(db, "items");
 

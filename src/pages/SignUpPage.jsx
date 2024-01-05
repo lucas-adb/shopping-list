@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { signUp } from "../utils/firebaseAuth";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { addNewUser } from "../utils/firebaseUsers";
 
 function SignUpPage() {
@@ -9,15 +9,16 @@ function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const navigate = useNavigate();
+
   const goToItemsAfterSignUp = async () => {
      const data = await signUp(email, password);
      const newEmail = data.user.email;
      const newUid = data.user.uid;
 
-     console.log(newEmail);
-     console.log(newUid);
-     
      await addNewUser(newEmail, newUid, username, photoURL)
+
+     navigate(`/mylist`);
   }
 
   return (
@@ -49,6 +50,7 @@ function SignUpPage() {
       className="sign-up-btn"
       onClick={() => goToItemsAfterSignUp(email, password)}
       // onClick={() => signUp(email, password)}
+      // TODO: create a folder with better validations
       disabled={!(email && password && username && photoURL)}
     >
       Sign Up
