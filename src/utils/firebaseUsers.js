@@ -14,7 +14,6 @@ export const addNewUser = async (email, userId, userName, photoUrl) => {
     userId, 
     userName,
     photoUrl,
-    // items: [],
   })
 
   console.log("User added successfully");
@@ -22,19 +21,3 @@ export const addNewUser = async (email, userId, userName, photoUrl) => {
    console.error(error);
  }
 }
-
-// export const addNewUser = async (email, userId, userName, photoUrl) => {
-//  try {
-//   await addDoc(shoppingUserCollection, {
-//     email,
-//     userId, 
-//     userName,
-//     photoUrl,
-//     items: [],
-//   })
-
-//   console.log("User added successfully");
-//  } catch (error) {
-//    console.error(error);
-//  }
-// }

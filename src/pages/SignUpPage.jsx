@@ -33,6 +33,7 @@ function SignUpPage() {
       placeholder="PhotoUrl..."
       onChange={(e) => setPhotoUrl(e.target.value)}
       className="new-item-input"
+      // TODO: storage images
       // type="file"
     />
     <input

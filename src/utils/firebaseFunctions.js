@@ -6,127 +6,43 @@ import {
   collection,
   onSnapshot,
   addDoc,
-  query,
-  where,
-  orderBy,
 } from "firebase/firestore";
 import { db } from "../config/firebase";
 
 import { auth } from "../config/firebase";
 
-const shoppingItemsCollection = collection(db, "items");
-
 // Read
 
 export function getItems(setShoppingItems) {
-  const shoppingItemsCollection = collection(db, `users/${auth.currentUser.uid}/items`);
-
-  const stopListeningToShoppingItems = onSnapshot(
-    shoppingItemsCollection,
-    (snapshot) => {
-      const updatedItems = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setShoppingItems(updatedItems);
-    }
-  );
-
-  return stopListeningToShoppingItems;
-}
-
-export function getShoppingItems(setShoppingItems) {
-  // const shoppingItemsCollection = collection(db, "items");
-
-  const stopListeningToShoppingItems = onSnapshot(
-    shoppingItemsCollection,
-    (snapshot) => {
-      const updatedItems = snapshot.docs.map((doc) => ({
-        ...doc.data(),
-        id: doc.id,
-      }));
-      setShoppingItems(updatedItems);
-    }
-  );
-
-  return stopListeningToShoppingItems;
-}
-
-export function getShoppingItemsByUserId(setShoppingItems) {
   const unsubscribe = auth.onAuthStateChanged((user) => {
     if (user) {
-      const userQuery = query(
-        shoppingItemsCollection,
-        where("userId", "==", user.uid),
-        orderBy("title")
-      );
+      const shoppingItemsCollection = collection(db, `users/${user.uid}/items`);
 
-      const stopListeningToShoppingItems = onSnapshot(
-        userQuery,
-        (snapshot) => {
-          const updatedItems = snapshot.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-          }));
-          setShoppingItems(updatedItems);
-        }
-      );
-
-      return stopListeningToShoppingItems;
-    } else {
-      console.log("User is not authenticated");
-      return () => {};
+      return onSnapshot(shoppingItemsCollection, (snapshot) => {
+        const updatedItems = snapshot.docs.map((doc) => ({
+          ...doc.data(),
+          id: doc.id,
+        }));
+        setShoppingItems(updatedItems || []);
+      });
     }
   });
 
   return () => unsubscribe();
 }
 
-// export function getShoppingItemsByUserId(setShoppingItems) {
-//   const userQuery = query(
-//     shoppingItemsCollection,
-//     where("userId", "==", auth.currentUser.uid),
-//     orderBy("title")
-//   );
-
-//   const stopListeningToShoppingItems = onSnapshot(
-//     userQuery,
-//     (snapshot) => {
-//       const updatedItems = snapshot.docs.map((doc) => ({
-//         ...doc.data(),
-//         id: doc.id,
-//       }));
-//       setShoppingItems(updatedItems);
-//     }
-//   );
-
-//   return stopListeningToShoppingItems;
-// }
-
 // CREATE
 
-// export async function addNewItem(newItem) {
-//   try {
-//     await addDoc(shoppingItemsCollection, {
-//       title: newItem,
-//       completed: false,
-//       // userId: "01",
-//       // Todo: create authentication
-//       userId: auth?.currentUser?.uid,
-//     });
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
-
 export async function addNewItem(newItem) {
-  const shoppingItemsCollection = collection(db, `users/${auth.currentUser.uid}/items`);
+  const shoppingItemsCollection = collection(
+    db,
+    `users/${auth.currentUser.uid}/items`
+  );
 
   try {
     await addDoc(shoppingItemsCollection, {
       title: newItem,
       completed: false,
-      // userId: "01",
       // Todo: create authentication
       userId: auth?.currentUser?.uid,
     });
