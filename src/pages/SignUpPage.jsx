@@ -2,6 +2,7 @@ import { useState } from "react";
 import { signUp } from "../utils/firebaseAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { addNewUser } from "../utils/firebaseUsers";
+import { storePhoto } from "../utils/firebaseStorage";
 
 function SignUpPage() {
   const [username, setUserName] = useState("");
@@ -11,14 +12,27 @@ function SignUpPage() {
 
   const navigate = useNavigate();
 
+  const handleUpload = async (event) => {
+    try {
+      const url = await storePhoto(event);
+      setPhotoUrl(url);
+    } catch (error) {
+      console.error(error)
+    }
+
+  };
+
   const goToItemsAfterSignUp = async () => {
-     const data = await signUp(email, password);
-     const newEmail = data.user.email;
-     const newUid = data.user.uid;
-
-     await addNewUser(newEmail, newUid, username, photoURL)
-
-     navigate(`/mylist`);
+     try {
+      const data = await signUp(email, password);
+      const newEmail = data.user.email;
+      const newUid = data.user.uid;
+      await addNewUser(newEmail, newUid, username, photoURL)
+      navigate(`/mylist`);
+     } catch (error) {
+      console.error(error);
+      alert("invalid email/password")
+     }
   }
 
   return (
@@ -31,8 +45,11 @@ function SignUpPage() {
     />
     <input
       placeholder="PhotoUrl..."
-      onChange={(e) => setPhotoUrl(e.target.value)}
+      // onChange={(e) => setPhotoUrl(e.target.value)}
+      onChange={(e) => handleUpload(e)}
       className="new-item-input"
+      type="file"
+      accept="image/png, image/gif, image/jpeg"
       // TODO: storage images
       // type="file"
     />

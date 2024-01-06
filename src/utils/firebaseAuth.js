@@ -10,6 +10,7 @@ export const login = async (email, password) => {
     await signInWithEmailAndPassword(auth, email, password);
   } catch (err) {
     console.error(err);
+    throw err
   }
 };
 
@@ -22,6 +23,7 @@ export const signUp = async (email, password) => {
       alert("Email already in use");
     } else {
       console.error(err);
+      throw err
     }
   }
 };

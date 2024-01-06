@@ -75,6 +75,28 @@ export function getUsername(setUsername) {
   }
 }
 
+export function getPhotoURL(setPhotoURL) {
+  const defaultPhoto = "https://firebasestorage.googleapis.com/v0/b/shoppinglist-12d68.appspot.com/o/profilePictures%2Fprofile-default-shopping-list.png?alt=media&token=d9f69760-80a9-4b28-84bd-7543e26b7e54";
+
+  try {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (user) {
+        const userDoc = doc(db, `users/${user.uid}`);
+
+        return onSnapshot(userDoc, (snapshot) => {
+          const userData = snapshot.data();
+          const updatedUsername = userData ? userData.photoUrl : defaultPhoto;
+          setPhotoURL(updatedUsername);
+        });
+      }
+    });
+
+    return () => unsubscribe();
+  } catch (error) {
+    console.error(error);
+  }
+}
+
 // UPDATE
 export async function toggleItemCompletion(id, previousItemCompletion) {
   try {
