@@ -28,10 +28,11 @@ function SignUpPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    // validates the data
     const newErr = validateNewUser(username, password, email, previewURL);
 
     if (newErr) {
-      console.log(newErr)
+      // console.log(newErr)
       setErrorMessage(newErr);
       setErrorVisible(true);
       return
@@ -52,13 +53,13 @@ function SignUpPage() {
       // change page
       navigate(`/mylist`);
     } catch (error) {
-      console.error(error);
-      alert("Sign up was unsuccessful");
+      setErrorMessage("Sign up was unsuccessful");
+      setErrorVisible(true);
     }
 
   };
 
-  console.log(previewURL)
+  // console.log(previewURL)
 
   return (
     <form className="shopping-list" onSubmit={handleSubmit}>
