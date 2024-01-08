@@ -53,7 +53,7 @@ function SignUpPage() {
       // change page
       navigate(`/mylist`);
     } catch (error) {
-      setErrorMessage("Sign up was unsuccessful");
+      setErrorMessage("Sign up was not successful 😔");
       setErrorVisible(true);
     }
 
