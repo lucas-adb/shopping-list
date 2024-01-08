@@ -3,7 +3,7 @@ import { signUp } from "../utils/firebaseAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { addNewUser } from "../utils/firebaseUsers";
 import { storePhoto } from "../utils/firebaseStorage";
-import { validatePassword } from "../validations/newUser";
+import { validateNewUser } from "../validations/newUser";
 
 function SignUpPage() {
   const [username, setUserName] = useState("");
@@ -38,11 +38,13 @@ function SignUpPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(email, password)
+    // console.log(email, password)
 
-    const newErr = validatePassword(password);
+    // const newErr = validatePassword(password);
+    // if (newErr) return console.log(newErr)
 
-    if (newErr) return console.log("invalid password")
+    const newErr = validateNewUser(username, password, email);
+    if (newErr) return console.log(newErr)
   }
 
   return (
@@ -55,13 +57,10 @@ function SignUpPage() {
     />
     <input
       placeholder="PhotoUrl..."
-      // onChange={(e) => setPhotoUrl(e.target.value)}
       onChange={(e) => handleUpload(e)}
       className="new-item-input"
       type="file"
       accept="image/png, image/gif, image/jpeg"
-      // TODO: storage images
-      // type="file"
     />
     <input
       placeholder="Email..."
