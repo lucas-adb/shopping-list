@@ -11,30 +11,39 @@ function SignUpPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [previewURL, setPreviewURL] = useState("");
+
   const navigate = useNavigate();
 
-  const handleUpload = async (event) => {
-    try {
-      const url = await storePhoto(event);
-      setPhotoUrl(url);
-    } catch (error) {
-      console.error(error)
-    }
+  // const handleUpload = async (event) => {
+  //   try {
+  //     const url = await storePhoto(event);
+  //     setPhotoUrl(url);
+  //   } catch (error) {
+  //     console.error(error)
+  //   }
 
+  // };
+
+  const previewPhoto = async (event) => {
+    const file = event.target.files[0];
+    const src = URL.createObjectURL(file);
+    // console.log(src);
+    setPreviewURL(src);
   };
 
   const goToItemsAfterSignUp = async () => {
-     try {
+    try {
       const data = await signUp(email, password);
       const newEmail = data.user.email;
       const newUid = data.user.uid;
-      await addNewUser(newEmail, newUid, username, photoURL)
+      await addNewUser(newEmail, newUid, username, photoURL);
       navigate(`/mylist`);
-     } catch (error) {
+    } catch (error) {
       console.error(error);
-      alert("invalid email/password")
-     }
-  }
+      alert("invalid email/password");
+    }
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -44,54 +53,56 @@ function SignUpPage() {
     // if (newErr) return console.log(newErr)
 
     const newErr = validateNewUser(username, password, email);
-    if (newErr) return console.log(newErr)
-  }
+    if (newErr) return console.log(newErr);
+  };
 
   return (
     <form className="shopping-list" onSubmit={handleSubmit}>
-    <h1>Shopping List</h1>
-    <input
-      placeholder="Username..."
-      onChange={(e) => setUserName(e.target.value)}
-      className="new-item-input"
-    />
-    <input
-      placeholder="PhotoUrl..."
-      onChange={(e) => handleUpload(e)}
-      className="new-item-input"
-      type="file"
-      accept="image/png, image/gif, image/jpeg"
-    />
-    <input
-      placeholder="Email..."
-      onChange={(e) => setEmail(e.target.value)}
-      className="new-item-input"
-    />
-    <input
-      placeholder="Password..."
-      type="password"
-      onChange={(e) => setPassword(e.target.value)}
-      className="new-item-input"
-    />
-    <button
-      className="sign-up-btn"
-      // onClick={() => goToItemsAfterSignUp(email, password)}
-      // onClick={() => signUp(email, password)}
-      // TODO: create a folder with better validations
-      // disabled={!(email && password && username && photoURL)}
-      type="submit"
-    >
-      Sign Up
-    </button>
+      <h1>Shopping List</h1>
+      <input
+        placeholder="Username..."
+        onChange={(e) => setUserName(e.target.value)}
+        className="new-item-input"
+      />
+      {previewURL && <img src={previewURL} className="profile-picture" />}
+      <input
+        placeholder="PhotoUrl..."
+        onChange={(e) => previewPhoto(e)}
+        // onChange={(e) => handleUpload(e)}
+        className="new-item-input"
+        type="file"
+        accept="image/png, image/gif, image/jpeg"
+      />
+      <input
+        placeholder="Email..."
+        onChange={(e) => setEmail(e.target.value)}
+        className="new-item-input"
+      />
+      <input
+        placeholder="Password..."
+        type="password"
+        onChange={(e) => setPassword(e.target.value)}
+        className="new-item-input"
+      />
+      <button
+        className="sign-up-btn"
+        // onClick={() => goToItemsAfterSignUp(email, password)}
+        // onClick={() => signUp(email, password)}
+        // TODO: create a folder with better validations
+        // disabled={!(email && password && username && photoURL)}
+        type="submit"
+      >
+        Sign Up
+      </button>
 
-    <p>
-      Already have an account?{" "}
-      <Link to={"/"} className="signup-link">
-        Login
-      </Link>
-    </p>
-  </form>
-  )
+      <p>
+        Already have an account?{" "}
+        <Link to={"/"} className="signup-link">
+          Login
+        </Link>
+      </p>
+    </form>
+  );
 }
 
 export default SignUpPage;
