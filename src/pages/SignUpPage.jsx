@@ -13,6 +13,9 @@ function SignUpPage() {
   const [previewFile, setPreviewFile] = useState(null);
   const [previewURL, setPreviewURL] = useState("");
 
+  const [errorVisible, setErrorVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
   const navigate = useNavigate();
 
   const previewPhoto = async (event) => {
@@ -25,8 +28,14 @@ function SignUpPage() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
-    const newErr = validateNewUser(username, password, email);
-    if (newErr) return console.log(newErr);
+    const newErr = validateNewUser(username, password, email, previewURL);
+
+    if (newErr) {
+      console.log(newErr)
+      setErrorMessage(newErr);
+      setErrorVisible(true);
+      return
+    }
 
     try {
       // gets url from firebase
@@ -49,6 +58,8 @@ function SignUpPage() {
 
   };
 
+  console.log(previewURL)
+
   return (
     <form className="shopping-list" onSubmit={handleSubmit}>
       <h1>Shopping List</h1>
@@ -61,7 +72,6 @@ function SignUpPage() {
       <input
         placeholder="PhotoUrl..."
         onChange={(e) => previewPhoto(e)}
-        // onChange={(e) => handleUpload(e)}
         className="new-item-input"
         type="file"
         accept="image/png, image/gif, image/jpeg"
@@ -83,6 +93,8 @@ function SignUpPage() {
       >
         Sign Up
       </button>
+
+      {errorVisible && <p className="input-error-p">{errorMessage}</p>}
 
       <p>
         Already have an account?{" "}

@@ -19,7 +19,11 @@ export const validateEmail = (email) => {
   if (!emailRegex.test(email)) return "email invalid";
 };
 
-export const validateNewUser = (username, password, email) => {
+export const validatePhotoUrl = (url) => {
+  if (isItAEmptyString(url)) return "please upload an image for your profile";
+}
+
+export const validateNewUser = (username, password, email, url) => {
   const usernameValidation = validateUsername(username);
   if (usernameValidation) return usernameValidation;
 
@@ -28,4 +32,7 @@ export const validateNewUser = (username, password, email) => {
 
   const emailValidation = validateEmail(email);
   if (emailValidation) return emailValidation;
+
+  const photoUrlValidation = validatePhotoUrl(url);
+  if (photoUrlValidation) return photoUrlValidation;
 };
