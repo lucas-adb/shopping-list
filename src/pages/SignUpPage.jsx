@@ -7,53 +7,46 @@ import { validateNewUser } from "../validations/newUser";
 
 function SignUpPage() {
   const [username, setUserName] = useState("");
-  const [photoURL, setPhotoUrl] = useState(null);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [previewFile, setPreviewFile] = useState(null);
   const [previewURL, setPreviewURL] = useState("");
 
   const navigate = useNavigate();
 
-  // const handleUpload = async (event) => {
-  //   try {
-  //     const url = await storePhoto(event);
-  //     setPhotoUrl(url);
-  //   } catch (error) {
-  //     console.error(error)
-  //   }
-
-  // };
-
   const previewPhoto = async (event) => {
     const file = event.target.files[0];
     const src = URL.createObjectURL(file);
-    // console.log(src);
     setPreviewURL(src);
+    setPreviewFile(file);
   };
 
-  const goToItemsAfterSignUp = async () => {
-    try {
-      const data = await signUp(email, password);
-      const newEmail = data.user.email;
-      const newUid = data.user.uid;
-      await addNewUser(newEmail, newUid, username, photoURL);
-      navigate(`/mylist`);
-    } catch (error) {
-      console.error(error);
-      alert("invalid email/password");
-    }
-  };
-
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    // console.log(email, password)
-
-    // const newErr = validatePassword(password);
-    // if (newErr) return console.log(newErr)
 
     const newErr = validateNewUser(username, password, email);
     if (newErr) return console.log(newErr);
+
+    try {
+      // gets url from firebase
+      const photoURL = await storePhoto(previewFile);
+
+      // authenticate and gets email and password
+      const data = await signUp(email, password);
+      const newEmail = data.user.email;
+      const newUid = data.user.uid;
+
+      // adds a new user in firebase
+      await addNewUser(newEmail, newUid, username, photoURL);
+
+      // change page
+      navigate(`/mylist`);
+    } catch (error) {
+      console.error(error);
+      alert("Sign up was unsuccessful");
+    }
+
   };
 
   return (
@@ -86,10 +79,6 @@ function SignUpPage() {
       />
       <button
         className="sign-up-btn"
-        // onClick={() => goToItemsAfterSignUp(email, password)}
-        // onClick={() => signUp(email, password)}
-        // TODO: create a folder with better validations
-        // disabled={!(email && password && username && photoURL)}
         type="submit"
       >
         Sign Up
