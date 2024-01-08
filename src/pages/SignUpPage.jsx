@@ -3,6 +3,7 @@ import { signUp } from "../utils/firebaseAuth";
 import { Link, useNavigate } from "react-router-dom";
 import { addNewUser } from "../utils/firebaseUsers";
 import { storePhoto } from "../utils/firebaseStorage";
+import { validatePassword } from "../validations/newUser";
 
 function SignUpPage() {
   const [username, setUserName] = useState("");
@@ -35,8 +36,17 @@ function SignUpPage() {
      }
   }
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(email, password)
+
+    const newErr = validatePassword(password);
+
+    if (newErr) return console.log("invalid password")
+  }
+
   return (
-    <div className="shopping-list">
+    <form className="shopping-list" onSubmit={handleSubmit}>
     <h1>Shopping List</h1>
     <input
       placeholder="Username..."
@@ -66,10 +76,11 @@ function SignUpPage() {
     />
     <button
       className="sign-up-btn"
-      onClick={() => goToItemsAfterSignUp(email, password)}
+      // onClick={() => goToItemsAfterSignUp(email, password)}
       // onClick={() => signUp(email, password)}
       // TODO: create a folder with better validations
-      disabled={!(email && password && username && photoURL)}
+      // disabled={!(email && password && username && photoURL)}
+      type="submit"
     >
       Sign Up
     </button>
@@ -80,7 +91,7 @@ function SignUpPage() {
         Login
       </Link>
     </p>
-  </div>
+  </form>
   )
 }
 

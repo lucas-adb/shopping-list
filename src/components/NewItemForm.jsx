@@ -25,7 +25,6 @@ function NewItemForm() {
   };
 
   return (
-    <>
       <form onSubmit={handleSubmit} className="new-item-form">
         <div className="new-item-input-wrapper">
           <input
@@ -41,7 +40,6 @@ function NewItemForm() {
         </div>
         {errorVisible && <p className="input-error-p">{errorMessage}</p>}
       </form>
-    </>
   );
 }
 

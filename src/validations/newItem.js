@@ -1,17 +1,4 @@
-const isItAEmptyString = (string) => {
-  if (string.trim() !== "") return false;
-  return true;
-};
-
-const isMinLengthValid = (string, minLength) => {
-  if (string.length < minLength) return false;
-  return true;
-};
-
-const isMaxLengthValid = (string, maxLength) => {
-  if (string.length > maxLength) return false;
-  return true;
-};
+import { isItAEmptyString, isMaxLengthValid, isMinLengthValid } from "./mainValidations";
 
 export const validateNewItem = (item) => {
   if (isItAEmptyString(item)) {
