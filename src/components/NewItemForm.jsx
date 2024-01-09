@@ -4,6 +4,19 @@ import { addNewItem } from "../utils/firebaseFunctions";
 import { FaCirclePlus } from "react-icons/fa6";
 import { validateNewItem } from "../validations/newItem";
 
+import { motion } from "framer-motion";
+
+export const MotionNewItemBtn = () => (
+  <motion.button
+    type="submit"
+    className="add-new-item-btn"
+    whileHover={{ scale: 1.1 }}
+    whileTap={{ scale: 0.9 }}
+  >
+    <FaCirclePlus />
+  </motion.button>
+)
+
 function NewItemForm() {
   const [newItem, setNewItem] = useState("");
   const [errorVisible, setErrorVisible] = useState(false);
@@ -34,9 +47,7 @@ function NewItemForm() {
             value={newItem}
             onChange={(event) => setNewItem(event.target.value)}
           />
-          <button className="add-new-item-btn" type="submit">
-            <FaCirclePlus />
-          </button>
+          <MotionNewItemBtn />
         </div>
         {errorVisible && <p className="input-error-p">{errorMessage}</p>}
       </form>
