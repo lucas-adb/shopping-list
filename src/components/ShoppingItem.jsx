@@ -1,44 +1,24 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-import {
-  // toggleItemCompletion,
-  deleteItem,
-  updateItemTitle,
-} from "../utils/firebaseFunctions";
+import { deleteItem } from "../utils/firebaseFunctions";
 import ItemCheckbox from "./ItemCheckbox";
+import ItemEditInput from "./ItemEditInput";
 
 function ShoppingItem({ item }) {
   const { id, title, completed } = item;
 
   const [isEditBtnClicked, setIsEditBtnClicked] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
-
-  useEffect(() => {
-    if (newTitle && newTitle.trim() !== "") {
-      updateItemTitle(id, newTitle);
-    }
-  }, [newTitle, id]);
 
   return (
     <div className="shopping-list-item">
-      {/* TODO: CREATE NEW COMPONENT FOR THE DYNAMIC LABEL/INPUTS */}
-      {!isEditBtnClicked && (
+      {isEditBtnClicked ? (
+        <ItemEditInput id={id} />
+      ) : (
         <ItemCheckbox id={id} completed={completed} title={title} />
-      )}
-
-      {isEditBtnClicked && (
-        <label htmlFor={id} className={"edit-item-label"}>
-          <input
-            type="text"
-            placeholder="Edit..."
-            className="edit-input"
-            onChange={(event) => setNewTitle(event.target.value)}
-          />
-        </label>
       )}
 
       <button
