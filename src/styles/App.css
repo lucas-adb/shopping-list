@@ -33,7 +33,19 @@ body {
   display: flex;
 }
 
-.shopping-list-item label {
+/* .shopping-list-item label {
+  font-size: 1.5rem;
+  display: grid;
+  grid-template-columns: 1em auto 1em;
+  gap: 0.5em;
+  width: 100%;
+} */
+
+/* .shopping-list-item label input {
+  accent-color: var(--highlight);
+  } */
+
+.show-item-label {
   font-size: 1.5rem;
   display: grid;
   grid-template-columns: 1em auto 1em;
@@ -41,9 +53,17 @@ body {
   width: 100%;
 }
 
-.shopping-list-item label input {
+.show-item-label input {
   accent-color: var(--highlight);
   }
+
+.edit-item-label {
+  font-size: 1.5rem;
+  display: grid;
+  grid-template-columns: auto;
+  gap: 0.5em;
+  width: 100%;
+}
 
 .item-completed {
   text-decoration: line-through;
@@ -54,10 +74,25 @@ body {
   text-decoration: none;
 }
 
-.trash-can, .edit {
+.trash-can, .edit-icon {
   align-self: center;
   cursor: pointer;
   color: var(--tertiary);
+}
+
+.trash-can:hover, .edit-icon:hover {
+  scale: 1.1;
+}
+
+.edit-icon-clicked {
+  color: var(--main);
+  animation: blinker 3s ease-in infinite
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
 }
 
 .delete-btn, .edit-btn {
@@ -77,6 +112,7 @@ body {
   padding: 0 8px;
   border-radius: 0.5rem;
   margin-block: 0.2rem;
+  text-decoration: none;
 }
 
 .new-item-input {

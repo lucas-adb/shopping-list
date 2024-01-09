@@ -24,33 +24,44 @@ function ShoppingItem({ item }) {
 
   return (
     <div className="shopping-list-item">
-      <label
-        htmlFor={id}
-        className={completed ? "item-completed" : "item-uncompleted"}
-      >
-        <input
-          type="checkbox"
-          name="checkbox"
-          id={id}
-          checked={completed}
-          onChange={() => toggleItemCompletion(id, completed)}
-        />
-        {isEditBtnClicked ? (
+      {/* TODO: CREATE NEW COMPONENT FOR THE DYNAMIC LABEL/INPUTS */}
+      {!isEditBtnClicked && (
+        <label
+          htmlFor={id}
+          className={
+            completed
+              ? "show-item-label item-completed"
+              : "show-item-label item-uncompleted"
+          }
+        >
+          <input
+            type="checkbox"
+            name="checkbox"
+            id={id}
+            checked={completed}
+            onChange={() => toggleItemCompletion(id, completed)}
+          />
+          {title}
+        </label>
+      )}
+
+      {isEditBtnClicked && (
+        <label htmlFor={id} className={"edit-item-label"}>
           <input
             type="text"
             placeholder="Edit..."
             className="edit-input"
             onChange={(event) => setNewTitle(event.target.value)}
           />
-        ) : (
-          title
-        )}
-      </label>
+        </label>
+      )}
+
       <button
         className="edit-btn"
         onClick={() => setIsEditBtnClicked(!isEditBtnClicked)}
       >
-        <FaEdit className="edit" />
+        <FaEdit className={isEditBtnClicked ? "edit-icon-clicked" : "edit-icon"}/>
+        {/* <FaEdit className="edit" /> */}
       </button>
       <button className="delete-btn" onClick={() => deleteItem(id)}>
         <FaRegTrashCan className="trash-can" />
