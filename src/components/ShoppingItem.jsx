@@ -5,10 +5,11 @@ import { FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
 import {
-  toggleItemCompletion,
+  // toggleItemCompletion,
   deleteItem,
   updateItemTitle,
 } from "../utils/firebaseFunctions";
+import ItemCheckbox from "./ItemCheckbox";
 
 function ShoppingItem({ item }) {
   const { id, title, completed } = item;
@@ -26,23 +27,7 @@ function ShoppingItem({ item }) {
     <div className="shopping-list-item">
       {/* TODO: CREATE NEW COMPONENT FOR THE DYNAMIC LABEL/INPUTS */}
       {!isEditBtnClicked && (
-        <label
-          htmlFor={id}
-          className={
-            completed
-              ? "show-item-label item-completed"
-              : "show-item-label item-uncompleted"
-          }
-        >
-          <input
-            type="checkbox"
-            name="checkbox"
-            id={id}
-            checked={completed}
-            onChange={() => toggleItemCompletion(id, completed)}
-          />
-          {title}
-        </label>
+        <ItemCheckbox id={id} completed={completed} title={title} />
       )}
 
       {isEditBtnClicked && (
@@ -60,8 +45,9 @@ function ShoppingItem({ item }) {
         className="edit-btn"
         onClick={() => setIsEditBtnClicked(!isEditBtnClicked)}
       >
-        <FaEdit className={isEditBtnClicked ? "edit-icon-clicked" : "edit-icon"}/>
-        {/* <FaEdit className="edit" /> */}
+        <FaEdit
+          className={isEditBtnClicked ? "edit-icon-clicked" : "edit-icon"}
+        />
       </button>
       <button className="delete-btn" onClick={() => deleteItem(id)}>
         <FaRegTrashCan className="trash-can" />

@@ -70,7 +70,7 @@ body {
   color: var(--secondary);
 }
 
-.item-uncompleted {
+.item-incomplete {
   text-decoration: none;
 }
 
