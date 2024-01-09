@@ -33,25 +33,25 @@ function SignUpPage() {
       // console.log(newErr)
       setErrorMessage(newErr);
       setErrorVisible(true);
-      return
+      return;
     }
     try {
       // authenticate and gets email and password
       const data = await signUp(email, password);
       const newEmail = data.user.email;
       const newUid = data.user.uid;
-  
+
       // login to upload photos and add new user
       await login(email, password);
-  
+
       // gets url from firebase
       const photoURL = await storePhoto(previewFile);
-  
+
       // check if photoURL is not undefined
       if (photoURL) {
         // adds a new user in firebase
         await addNewUser(newEmail, newUid, username, photoURL);
-  
+
         // change page
         navigate(`/mylist`);
       } else {
@@ -66,34 +66,52 @@ function SignUpPage() {
   return (
     <form className="shopping-list" onSubmit={handleSubmit}>
       <h1>Shopping List</h1>
-      <input
-        placeholder="Username..."
-        onChange={(e) => setUserName(e.target.value)}
-        className="new-item-input"
-      />
+
+      <label htmlFor="username-input">
+        Username
+        <input
+          placeholder="Username..."
+          onChange={(e) => setUserName(e.target.value)}
+          className="new-item-input"
+          id="username-input"
+        />
+      </label>
+
       {previewURL && <img src={previewURL} className="profile-picture" />}
-      <input
-        placeholder="PhotoUrl..."
-        onChange={(e) => previewPhoto(e)}
-        className="new-item-input"
-        type="file"
-        accept="image/png, image/gif, image/jpeg"
-      />
-      <input
-        placeholder="Email..."
-        onChange={(e) => setEmail(e.target.value)}
-        className="new-item-input"
-      />
-      <input
-        placeholder="Password..."
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-        className="new-item-input"
-      />
-      <button
-        className="sign-up-btn"
-        type="submit"
-      >
+      <label htmlFor="profile-picture-input">
+        Profile Picture
+        <input
+          placeholder="PhotoUrl..."
+          onChange={(e) => previewPhoto(e)}
+          className="profile-input"
+          type="file"
+          accept="image/png, image/gif, image/jpeg"
+          id="profile-picture-input"
+        />
+      </label>
+
+      <label htmlFor="email-input">
+        Email
+        <input
+          placeholder="Email..."
+          onChange={(e) => setEmail(e.target.value)}
+          className="new-item-input"
+          id="email-input"
+        />
+      </label>
+
+      <label htmlFor="password-input">
+        Password
+        <input
+          placeholder="Password..."
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          className="new-item-input"
+          id="password-input"
+        />
+      </label>
+
+      <button className="sign-up-btn" type="submit">
         Sign Up
       </button>
 

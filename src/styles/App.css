@@ -123,6 +123,20 @@ body {
   padding: 0 8px;
   font-size: 1.5rem;
   width: 100%;
+
+  margin-block-start: 0.5rem;
+}
+
+.profile-input {
+  margin-block-start: 0.5rem;
+}
+
+.profile-input::file-selector-button {
+  border-radius: 0.5rem;
+  border: 1px solid var(--tertiary);
+  padding: 8px;
+
+  background-color: var(--tertiary);
 }
 
 .add-new-item-btn {
