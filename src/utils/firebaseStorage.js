@@ -1,8 +1,8 @@
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../config/firebase";
 
-export const storePhoto = async (event) => {
-  const file = event.target.files[0];
+export const storePhoto = async (file) => {
+  // const file = event.target.files[0];
   const storageRef = ref(storage, `profilePictures/${file.name}`);
 
   try {
@@ -14,14 +14,3 @@ export const storePhoto = async (event) => {
     console.error(error);
   }
 };
-
-// export const storePhoto = async (event) => {
-//   const file = event.target.files[0];
-//   const storageRef = storage.ref();
-//   const fileRef = storageRef.child(file.name);
-//   await fileRef.put(file);
-//   const url = await fileRef.getDownloadURL();
-//   return url;
-// };
-
-

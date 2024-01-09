@@ -140,3 +140,13 @@ body {
   display: flex;
   gap: 1rem;
 }
+
+.new-item-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.input-error-p {
+  color: var(--tertiary);
+}
