@@ -1,22 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { login } from "../utils/firebaseAuth";
-
-import shoppingCart from "../assets/shopping-cart.png";
-
-import { motion } from "framer-motion";
-
-export const MyComponent = () => (
-  <motion.img
-    src={shoppingCart}
-    key={shoppingCart}
-    alt="shopping-cart-3d-illustration"
-    initial={{ opacity: 0, scale: 0.8}}
-    animate={{ opacity: 1, scale: 1, x: [-300, 20, 0], rotate: [0, -5, 0] }}
-    transition={{ duration: 1, ease: "easeOut" }}
-    whileHover={{ scale: 1.02 }}
-  />
-)
+import { MotionWomanCart } from "../components/MotionWomanCart";
 
 function Root() {
   const [email, setEmail] = useState("");
@@ -39,8 +24,7 @@ function Root() {
 
   return (
     <div className="shopping-list">
-      <MyComponent />
-      {/* <img src={shoppingCart} alt="shopping-cart-3d-illustration" /> */}
+      <MotionWomanCart />
       <h1>Shopping List</h1>
       <input
         placeholder="Email..."
