@@ -12,7 +12,9 @@ function Root() {
 
   const navigate = useNavigate();
 
-  const goToItemsAfterLogin = async (email, password) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     try {
       await login(email, password);
       navigate(`/mylist`);
@@ -20,31 +22,30 @@ function Root() {
       setErrorMessage("login was not successful 😔");
       setErrorVisible(true);
     }
-  };
+  }
 
   return (
-    <div className="shopping-list">
+    <form onSubmit={handleSubmit} className="shopping-list">
       <MotionWomanCart />
       <h1>Shopping List</h1>
-      <input
-        placeholder="Email..."
-        onChange={(e) => setEmail(e.target.value)}
-        className="new-item-input"
-      />
-      <input
-        placeholder="Password..."
-        type="password"
-        onChange={(e) => setPassword(e.target.value)}
-        className="new-item-input"
-      />
-      <button
-        className="login-btn"
-        onClick={() => goToItemsAfterLogin(email, password)}
-        disabled={!(email && password)}
-      >
-        Login
-      </button>
-
+        <input
+          placeholder="Email..."
+          onChange={(e) => setEmail(e.target.value)}
+          className="new-item-input"
+        />
+        <input
+          placeholder="Password..."
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          className="new-item-input"
+        />
+        <button
+          className="login-btn"
+          type="submit"
+          disabled={!(email && password)}
+        >
+          Login
+        </button>
       {errorVisible && <p className="input-error-p">{errorMessage}</p>}
 
       <p>
@@ -53,7 +54,7 @@ function Root() {
           Sign up
         </Link>
       </p>
-    </div>
+    </form>
   );
 }
 
