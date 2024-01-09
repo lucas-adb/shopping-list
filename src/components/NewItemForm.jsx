@@ -1,21 +1,8 @@
 import { useState } from "react";
 import { addNewItem } from "../utils/firebaseFunctions";
 
-import { FaCirclePlus } from "react-icons/fa6";
 import { validateNewItem } from "../validations/newItem";
-
-import { motion } from "framer-motion";
-
-export const MotionNewItemBtn = () => (
-  <motion.button
-    type="submit"
-    className="add-new-item-btn"
-    whileHover={{ scale: 1.1 }}
-    whileTap={{ scale: 0.9 }}
-  >
-    <FaCirclePlus />
-  </motion.button>
-)
+import { MotionNewItemBtn } from "./MotionNewItemBtn";
 
 function NewItemForm() {
   const [newItem, setNewItem] = useState("");
