@@ -10,3 +10,4 @@
     Colors: Happy Hues
     Font: Poppins (Google Fonts)
     Icons: React-Icons
+    Animations: Framer Motion

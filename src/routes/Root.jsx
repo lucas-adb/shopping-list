@@ -4,6 +4,20 @@ import { login } from "../utils/firebaseAuth";
 
 import shoppingCart from "../assets/shopping-cart.png";
 
+import { motion } from "framer-motion";
+
+export const MyComponent = () => (
+  <motion.img
+    src={shoppingCart}
+    key={shoppingCart}
+    alt="shopping-cart-3d-illustration"
+    initial={{ opacity: 0, scale: 0.8}}
+    animate={{ opacity: 1, scale: 1, x: [-300, 20, 0], rotate: [0, -5, 0] }}
+    transition={{ duration: 1, ease: "easeOut" }}
+    whileHover={{ scale: 1.02 }}
+  />
+)
+
 function Root() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,7 +39,8 @@ function Root() {
 
   return (
     <div className="shopping-list">
-      <img src={shoppingCart} alt="shopping-cart-3d-illustration" />
+      <MyComponent />
+      {/* <img src={shoppingCart} alt="shopping-cart-3d-illustration" /> */}
       <h1>Shopping List</h1>
       <input
         placeholder="Email..."

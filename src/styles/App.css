@@ -150,3 +150,10 @@ body {
 .input-error-p {
   color: var(--tertiary);
 }
+
+/* .my-component {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: var(--tertiary);
+} */
