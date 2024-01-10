@@ -1,6 +1,9 @@
 # Shopping List
 Hi, this project is a simple shopping list to help you remember to buy that thing that you always forget. Feel free to sign up and try it out. Let me know what you think 😉
 
+## Link 🔗
+Click <a href="https://lucasalves.dev/">here</a> to try it!
+
 ## Preview 📸
 
 <p float="left">
