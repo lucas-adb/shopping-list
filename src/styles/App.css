@@ -78,6 +78,7 @@ body {
   align-self: center;
   cursor: pointer;
   color: var(--tertiary);
+  min-width: 1.5rem;
 }
 
 .trash-can:hover, .edit-icon:hover {
@@ -124,11 +125,13 @@ body {
   font-size: 1.5rem;
   width: 100%;
 
-  margin-block-start: 0.5rem;
+  /* margin-block-start: 0.5rem; */
 }
 
 .profile-input {
   margin-block-start: 0.5rem;
+  width: 100%;
+  font-size: 0.9rem;
 }
 
 .profile-input::file-selector-button {
@@ -137,6 +140,7 @@ body {
   padding: 8px;
 
   background-color: var(--tertiary);
+  color: var(--background)
 }
 
 .add-new-item-btn {
@@ -152,7 +156,8 @@ body {
 
 .new-item-input-wrapper {
   display: flex;
-  gap: 0.5rem;
+  /* gap: 0.5rem; */
+  gap: 0.2rem;
 }
 
 .login-btn, .sign-up-btn, .logout-btn {
@@ -161,6 +166,7 @@ body {
   border-radius: 0.5rem;
   padding: 0.5rem;
   cursor: pointer;
+  color: var(--background);
 }
 
 .login-btn:disabled, .sign-up-btn:disabled {
@@ -221,4 +227,8 @@ body {
 .img-wrapper {
   max-width: 320px;
   margin: 0 auto;
+}
+
+.shopping-list label {
+  width: 100%;
 }
