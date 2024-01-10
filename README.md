@@ -1,4 +1,5 @@
 # Shopping List
+![preview 1]('/images/preview-1.jpeg')
 
 ## Stack 🔧
     React
