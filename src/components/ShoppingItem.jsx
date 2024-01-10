@@ -1,60 +1,70 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 import { FaRegTrashCan } from "react-icons/fa6";
 import { FaEdit } from "react-icons/fa";
 import PropTypes from "prop-types";
 
-import {
-  toggleItemCompletion,
-  deleteItem,
-  updateItemTitle,
-} from "../utils/firebaseFunctions";
+import { deleteItem, updateItemTitle } from "../utils/firebaseFunctions";
+import ItemCheckbox from "./ItemCheckbox";
+import ItemEditInput from "./ItemEditInput";
+import { validateNewItem } from "../validations/newItem";
 
 function ShoppingItem({ item }) {
   const { id, title, completed } = item;
 
   const [isEditBtnClicked, setIsEditBtnClicked] = useState(false);
-  const [newTitle, setNewTitle] = useState("");
 
-  useEffect(() => {
-    if (newTitle && newTitle.trim() !== "") {
+  const [errorVisible, setErrorVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const editTitle = (newTitle) => {
+    const newErr = validateNewItem(newTitle);
+
+    if (!newErr) {
       updateItemTitle(id, newTitle);
+      setErrorVisible(false);
+
+      setIsEditBtnClicked(false);
+      setErrorMessage("");
+    } else {
+      setErrorMessage(newErr);
+      setErrorVisible(true);
     }
-  }, [newTitle, id]);
+  };
+
+  const handleEditBtn = () => {
+    if (errorMessage) {
+      setErrorMessage("");
+    }
+
+    setIsEditBtnClicked(!isEditBtnClicked);
+  };
 
   return (
-    <div className="shopping-list-item">
-      <label
-        htmlFor={id}
-        className={completed ? "item-completed" : "item-uncompleted"}
-      >
-        <input
-          type="checkbox"
-          name="checkbox"
-          id={id}
-          checked={completed}
-          onChange={() => toggleItemCompletion(id, completed)}
-        />
+    <div className="shopping-list-wrapper">
+      <div className="shopping-list-item">
         {isEditBtnClicked ? (
-          <input
-            type="text"
-            placeholder="Edit..."
-            className="edit-input"
-            onChange={(event) => setNewTitle(event.target.value)}
-          />
+          <ItemEditInput id={id} editTitle={editTitle} />
         ) : (
-          title
+          <ItemCheckbox id={id} completed={completed} title={title} />
         )}
-      </label>
-      <button
-        className="edit-btn"
-        onClick={() => setIsEditBtnClicked(!isEditBtnClicked)}
-      >
-        <FaEdit className="edit" />
-      </button>
-      <button className="delete-btn" onClick={() => deleteItem(id)}>
-        <FaRegTrashCan className="trash-can" />
-      </button>
+
+        <button
+          className="edit-btn"
+          onClick={() => handleEditBtn()}
+        >
+          <FaEdit
+            className="edit-icon"
+          />
+        </button>
+        <button className="delete-btn" onClick={() => deleteItem(id)}>
+          <FaRegTrashCan className="trash-can" />
+        </button>
+      </div>
+
+      <div className="shopping-list-item-error">
+        {errorVisible && <p className="input-error-p">{errorMessage}</p>}
+      </div>
     </div>
   );
 }

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { addNewItem } from "../utils/firebaseFunctions";
 
-import { FaCirclePlus } from "react-icons/fa6";
 import { validateNewItem } from "../validations/newItem";
+import { MotionNewItemBtn } from "./MotionNewItemBtn";
 
 function NewItemForm() {
   const [newItem, setNewItem] = useState("");
@@ -34,9 +34,7 @@ function NewItemForm() {
             value={newItem}
             onChange={(event) => setNewItem(event.target.value)}
           />
-          <button className="add-new-item-btn" type="submit">
-            <FaCirclePlus />
-          </button>
+          <MotionNewItemBtn />
         </div>
         {errorVisible && <p className="input-error-p">{errorMessage}</p>}
       </form>

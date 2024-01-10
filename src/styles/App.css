@@ -33,7 +33,19 @@ body {
   display: flex;
 }
 
-.shopping-list-item label {
+/* .shopping-list-item label {
+  font-size: 1.5rem;
+  display: grid;
+  grid-template-columns: 1em auto 1em;
+  gap: 0.5em;
+  width: 100%;
+} */
+
+/* .shopping-list-item label input {
+  accent-color: var(--highlight);
+  } */
+
+.show-item-label {
   font-size: 1.5rem;
   display: grid;
   grid-template-columns: 1em auto 1em;
@@ -41,26 +53,49 @@ body {
   width: 100%;
 }
 
-.shopping-list-item label input {
+.show-item-label input {
   accent-color: var(--highlight);
   }
+
+.edit-item-label {
+  font-size: 1.5rem;
+  display: grid;
+  grid-template-columns: auto;
+  gap: 0.5em;
+  width: 100%;
+}
 
 .item-completed {
   text-decoration: line-through;
   color: var(--secondary);
 }
 
-.item-uncompleted {
+.item-incomplete {
   text-decoration: none;
 }
 
-.trash-can, .edit {
+.trash-can, .edit-icon, .save-icon {
   align-self: center;
   cursor: pointer;
   color: var(--tertiary);
 }
 
-.delete-btn, .edit-btn {
+.trash-can:hover, .edit-icon:hover {
+  scale: 1.1;
+}
+
+/* .edit-icon-clicked {
+  color: var(--main);
+  animation: blinker 3s ease-in infinite
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+} */
+
+.delete-btn, .edit-btn, .save-btn {
   background-color: transparent;
   border: none;
 }
@@ -77,6 +112,7 @@ body {
   padding: 0 8px;
   border-radius: 0.5rem;
   margin-block: 0.2rem;
+  text-decoration: none;
 }
 
 .new-item-input {
@@ -87,6 +123,20 @@ body {
   padding: 0 8px;
   font-size: 1.5rem;
   width: 100%;
+
+  margin-block-start: 0.5rem;
+}
+
+.profile-input {
+  margin-block-start: 0.5rem;
+}
+
+.profile-input::file-selector-button {
+  border-radius: 0.5rem;
+  border: 1px solid var(--tertiary);
+  padding: 8px;
+
+  background-color: var(--tertiary);
 }
 
 .add-new-item-btn {
@@ -149,4 +199,21 @@ body {
 
 .input-error-p {
   color: var(--tertiary);
+}
+
+/* .my-component {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  background: var(--tertiary);
+} */
+
+.edit-title-form {
+  display: flex;
+}
+
+.shopping-list-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
 }
