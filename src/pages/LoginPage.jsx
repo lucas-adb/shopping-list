@@ -26,7 +26,9 @@ function LoginPage() {
 
   return (
     <form onSubmit={handleSubmit} className="shopping-list">
-      <MotionWomanCart />
+      <div className="img-wrapper">
+        <MotionWomanCart />
+      </div>
       <h1>Shopping List</h1>
       <input
         placeholder="Email..."

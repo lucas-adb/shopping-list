@@ -217,3 +217,8 @@ body {
   flex-direction: column;
   gap: 0.5rem;
 }
+
+.img-wrapper {
+  max-width: 320px;
+  margin: 0 auto;
+}

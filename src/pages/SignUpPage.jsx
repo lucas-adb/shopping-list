@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { addNewUser } from "../utils/firebaseUsers";
 import { storePhoto } from "../utils/firebaseStorage";
 import { validateNewUser } from "../validations/newUser";
+import { MotionSignup } from "../components/MotionSignup";
 
 function SignUpPage() {
   const [username, setUserName] = useState("");
@@ -65,6 +66,9 @@ function SignUpPage() {
 
   return (
     <form className="shopping-list" onSubmit={handleSubmit}>
+      <div className="img-wrapper">
+        <MotionSignup />
+      </div>
       <h1>Shopping List</h1>
 
       <label htmlFor="username-input">
