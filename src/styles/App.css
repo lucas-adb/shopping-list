@@ -157,7 +157,7 @@ body {
 .new-item-input-wrapper {
   display: flex;
   /* gap: 0.5rem; */
-  gap: 0.2rem;
+  /* gap: 0.2rem; */
 }
 
 .login-btn, .sign-up-btn, .logout-btn {
